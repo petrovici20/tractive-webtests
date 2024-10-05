@@ -58,5 +58,13 @@ async function verifyRedirectToCorrectLink (page, expectedURL){
   
 }
 
-module.exports= {clickLinkAndVerifyURL, openBrowserWithCookie, verifyRedirectToCorrectLink }
+async function verifyPopUpText (page, selector, text){
+
+  const popup = await page.waitForSelector(selector); 
+  const popupText = await popup.textContent();
+  expect(popupText).toContain(text);
+
+}
+
+module.exports= {clickLinkAndVerifyURL, openBrowserWithCookie, verifyRedirectToCorrectLink, verifyPopUpText }
   
