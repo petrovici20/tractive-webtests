@@ -1,6 +1,6 @@
 const { test, expect} = require('@playwright/test');
 const RegistrationPage = require('../pages/registration.page'); // Import the Signup Page Object
-const { openBrowserWithCookie, clickLinkAndVerifyURL } = require('../utils/helpers'); // Import the helpers
+const { openBrowserWithCookie, clickLinkAndVerifyURL, verifyRedirectToCorrectLink} = require('../utils/helpers'); // Import the helpers
 
 test.describe('Create Account Form Tests', () => {
   let browser, page, regPage
@@ -32,7 +32,7 @@ test.describe('Create Account Form Tests', () => {
 
     await regPage.subbmitForm()// Click Create Account button
 
-    await regPage.assersionRedirectToScucces()// Check if redirected to the success page
+    await verifyRedirectToCorrectLink(page, 'https://staging.tractive.com/activation/#/activation/device' )// Check if redirected to the success page
     //await browser.close(); 
   });
 
@@ -86,6 +86,30 @@ test.describe('Create Account Form Tests', () => {
     const expectedURL ='https://assets.tractive.com/static/legal/en/terms-of-service.pdf'
     await clickLinkAndVerifyURL(page,'Terms & Conditions', expectedURL)
     
+  })
+
+  test('test Privacy Policy', async () => {
+    
+    await regPage.clickOnPrivacyPolicy()
+    await page.waitForTimeout(2000);
+    const expectedURL ='https://assets.tractive.com/static/legal/en/privacy-policy.pdf'
+    await clickLinkAndVerifyURL(page,'Privacy Policy', expectedURL)
+    
+  })
+
+  test('test go to Sing in page', async () => {
+    
+    await regPage.clickOnAlreadyHaveAnAccount()
+    await page.waitForTimeout(2000);
+    await verifyRedirectToCorrectLink(page, 'https://my-stage.tractive.com/#/')
+    
+  })
+
+  test ('test Try demo mode link', async () =>{
+
+    await regPage.clickOnDemoMode()
+    await verifyRedirectToCorrectLink(page, 'https://my-stage.tractive.com/#/map')
+
   })
 
 })

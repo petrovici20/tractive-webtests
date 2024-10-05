@@ -51,5 +51,12 @@ async function clickLinkAndVerifyURL(page, linkText, expectedURL) {
     await expect(newPage).toHaveURL(expectedURL);
 }
 
-module.exports= {clickLinkAndVerifyURL, openBrowserWithCookie }
+async function verifyRedirectToCorrectLink (page, expectedURL){
+  
+  await page.waitForLoadState();
+  await expect(page).toHaveURL(expectedURL);
+  
+}
+
+module.exports= {clickLinkAndVerifyURL, openBrowserWithCookie, verifyRedirectToCorrectLink }
   

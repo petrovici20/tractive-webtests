@@ -5,16 +5,18 @@ class RegistrationPage {
 
         this.page=page
         //Define locators
-        this.firstNameField =page.locator('input[name="firstName"]')
-        this.lastNameField=page.locator('input[name="lastName"]')
-        this.emailField=page.locator('input[name="email"]')
-        this.passwordField=page.locator('input[name="password"]')
-        //this.checkboxTerms=page.locator('label.tcommon-check .tcommon-check__mask')
-        this.checkboxPromo=page.locator('tcommon-check div')
+        this.firstNameField= page.locator('input[name="firstName"]')
+        this.lastNameField= page.locator('input[name="lastName"]')
+        this.emailField= page.locator('input[name="email"]')
+        this.passwordField= page.locator('input[name="password"]')
+        this.checkboxPromo= page.locator('tcommon-check div')
         this.actualCheckbox = this.page.locator('input[type="checkbox"][id="newsletter"]');
         this.createAccountButton = page.getByRole('button', { name: 'Create Account' })
-        this.formClick=page.getByText('Create Account First name')
-        this.termsAndConds=page.getByRole('link', { name: 'Terms & Conditions' })
+        this.formClick= page.getByText('Create Account First name')
+        this.termsAndConds= page.getByRole('link', { name: 'Terms & Conditions' })
+        this.privacyPolicy= page.getByRole('link', { name: 'Privacy Policy' })
+        this.alreadyHaveAccount= page.getByRole('link', { name: 'I already have a Tractive' })
+        this.demoMode= page.getByRole('button', { name: 'Try Demo Mode' })
         //Define error locators
         this.firstNameError = page.locator('text=This field is required')
         this.lastNameError = page.locator('text=This field is required')
@@ -75,6 +77,21 @@ class RegistrationPage {
         await this.termsAndConds.click()
     }
 
+    async clickOnPrivacyPolicy()
+    {
+        await this.privacyPolicy.click()
+    }
+
+    async clickOnAlreadyHaveAnAccount()
+    {
+        await this.alreadyHaveAccount.click()
+    }
+
+    async clickOnDemoMode()
+    {
+        await this.demoMode.click()
+    }
+
     //Assersion methods
     async assertionFirstNameErrorVisible ()
     {
@@ -94,11 +111,6 @@ class RegistrationPage {
     async assersionPasswordErrorVisible()
     {
         await expect(this.passwordError).toBeVisible()
-    }
-
-    async assersionRedirectToScucces()
-    {
-        await expect(this.page).toHaveURL('https://staging.tractive.com/activation/#/activation/device');
     }
     
 }
