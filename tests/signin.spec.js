@@ -20,14 +20,35 @@ test.describe ('Sing in form tests',() =>{
       await browser.close()
     });
 
-    // test('successful login with valid credentials', async() =>{
+    test('successful login with valid credentials and logout', async() =>{
 
-    //     await signinPage.fillEmailAddress ('alexandrapetrovici16@yahoo.com')
-    //     await signinPage.fillPassword ('123456789')
-    //     await signinPage.clickOnSignIn()
-    //     await verifyRedirectToCorrectLink(page, 'https://my-stage.tractive.com/#/settings/')
+        await signinPage.fillEmailAddress ('iovanca.petrovici@gmail.com')
+        await signinPage.fillPassword ('123456789')
+        await signinPage.clickOnSignIn()
+        await verifyRedirectToCorrectLink(page, 'https://my-stage.tractive.com/#/settings/')
+        //Logout after succesfull login
+        await signinPage.signout()
 
-    // })
+        await signinPage.signoutFromAllDevicesChecbox()
+        await signinPage.signoutConfirmation()
+        await signinPage.signoutNowButtonClick()
+        await verifyRedirectToCorrectLink(page, 'https://my-stage.tractive.com/#/')
+
+    })
+
+    test('successful login with valid credentials and cancel logout', async() =>{
+
+      await signinPage.fillEmailAddress ('iovanca.petrovici@gmail.com')
+      await signinPage.fillPassword ('123456789')
+      await signinPage.clickOnSignIn()
+      await verifyRedirectToCorrectLink(page, 'https://my-stage.tractive.com/#/settings/')
+      //cancel Logout after succesfull login
+      await signinPage.signout()
+      //await signinPage.validationPopupShowing()
+      await signinPage.signoutCancel()
+      await verifyRedirectToCorrectLink(page, 'https://my-stage.tractive.com/#/settings/')
+
+  })
 
     test('unsuccessful login with unregistered email', async() =>{
 
@@ -60,6 +81,23 @@ test.describe ('Sing in form tests',() =>{
         await signinPage.fillEmailAddress('alexandra@yahoo.com')
         await signinPage.clickReset()
         await verifyPopUpText(page,'.toast-error',"No Tractive account tied to this email." )
+
+    })
+
+
+    test('test create account link', async () => {
+
+      await signinPage.createAccountClick()
+      await page.waitForTimeout(2000);
+      await verifyRedirectToCorrectLink(page, 'https://my-stage.tractive.com/#/signup')
+
+    })
+
+    test('test try demo mode link', async () => {
+
+      await signinPage.tryDemoModeClick()
+      await page.waitForTimeout(2000);
+      await verifyRedirectToCorrectLink(page, 'https://my-stage.tractive.com/#/map')
 
     })
 

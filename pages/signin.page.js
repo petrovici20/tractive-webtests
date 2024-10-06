@@ -12,6 +12,15 @@ class SignInPage{
         this.forgotPassword= page.getByText('Forgot password?')
         this.resetButton= page.getByRole('button', { name: 'Reset' })
         this.cancelButton= page.getByRole('link', { name: 'Cancel' })
+        this.signoutButton= page.getByRole('banner').getByText('Sign Out')
+        this.signoutButtonConfirmation= page.getByRole('button', { name: 'Sign Out' })
+        this.cancelButtonSignout=page.getByRole('button', { name: 'Cancel' })
+        this.signOutFromAllDevicesCheck = page.locator('text=Sign out from all devices');
+        this.signoutNowButton=page.getByRole('button', { name: 'Sign out now' })
+        this.createAccount=page.getByRole('link', { name: 'Create Account' })
+        this.tryDemoMode=page.getByRole('button', { name: 'Try Demo Mode' })
+        
+
     }
 
     //Methods for interacting with the form
@@ -46,6 +55,43 @@ class SignInPage{
         await this.cancelButton.click()
     }
 
+    async signout()
+    {
+        await this.signoutButton.click()
+    }
+
+    async signoutConfirmation()
+    {
+        await this.signoutButtonConfirmation.click()
+    }
+
+    async signoutCancel()
+    {
+        await this.cancelButtonSignout.click()
+    }
+
+    async createAccountClick()
+    {
+        await this.createAccount.click()
+    }
+
+    async tryDemoModeClick()
+    {
+        await this.tryDemoMode.click()
+    }
+    
+    async signoutNowButtonClick()
+    {
+        await this.signoutNowButton.click()
+    }
+
+    async signoutFromAllDevicesChecbox()
+    {
+        await this.signOutFromAllDevicesCheck.click()
+        await expect(this.signOutFromAllDevicesCheck).toBeChecked()
+    }
+
+   
 }
 
 module.exports = SignInPage;
