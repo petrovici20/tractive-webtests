@@ -80,6 +80,7 @@ test.describe('Create Account Form Tests',() => {
     await regPage.clickOnTermsAndConds()
     await page.waitForTimeout(2000)
     const expectedURL ='https://assets.tractive.com/static/legal/en/terms-of-service.pdf'
+    //Verify if the newly opened tab after clicking is Terms and Conditins
     await clickLinkAndVerifyURL(page,'Terms & Conditions', expectedURL)
     
   })
@@ -89,6 +90,7 @@ test.describe('Create Account Form Tests',() => {
     await regPage.clickOnPrivacyPolicy()
     await page.waitForTimeout(2000)
     const expectedURL ='https://assets.tractive.com/static/legal/en/privacy-policy.pdf'
+    //Verify if the newly opened tab after clicking is Privacy Policy
     await clickLinkAndVerifyURL(page,'Privacy Policy', expectedURL)
     
   })

@@ -1,12 +1,12 @@
 const { test, expect} = require('@playwright/test');
-const SignInPage = require('../pages/signin.page');
-const { openBrowserWithCookie, verifyRedirectToCorrectLink, verifyPopUpText} = require('../utils/helpers');
+const SignInPage = require('../pages/signin.page'); //Import the SignIn page
+const { openBrowserWithCookie, verifyRedirectToCorrectLink, verifyPopUpText} = require('../utils/helpers');//import helerp functions
 
 
 test.describe ('Sing in form tests',() =>{
 
     let browser, page, signinPage
-
+    //Open the website before each test and resolve the cookie
     test.beforeEach (async () => {
       const bp = await openBrowserWithCookie('https://my-stage.tractive.com/#/')
       browser = bp.browser
@@ -25,10 +25,10 @@ test.describe ('Sing in form tests',() =>{
         await signinPage.fillEmailAddress ('iovanca.petrovici@gmail.com')
         await signinPage.fillPassword ('123456789')
         await signinPage.clickOnSignIn()
+        //Verify if the opened page is the correct one
         await verifyRedirectToCorrectLink(page, 'https://my-stage.tractive.com/#/settings/')
         //Logout after succesfull login
         await signinPage.signout()
-
         await signinPage.signoutFromAllDevicesChecbox()
         await signinPage.signoutConfirmation()
         await signinPage.signoutNowButtonClick()
@@ -69,6 +69,7 @@ test.describe ('Sing in form tests',() =>{
         // expect(isTextVisible).toBe(true);
         await signinPage.fillEmailAddress('alexandrapetrovici16@yahoo.com')
         await signinPage.clickReset()
+        //Verify if the erroe pop up showed up with the correct message
         await verifyPopUpText(page, '.toast-info', "We've sent you a 24hr password reset link.")
         await verifyRedirectToCorrectLink(page, 'https://my-stage.tractive.com/#/')
 
@@ -80,6 +81,7 @@ test.describe ('Sing in form tests',() =>{
         await verifyRedirectToCorrectLink(page, 'https://my-stage.tractive.com/#/forgot')
         await signinPage.fillEmailAddress('alexandra@yahoo.com')
         await signinPage.clickReset()
+        //Verify if the erroe pop up showed up with the correct message
         await verifyPopUpText(page,'.toast-error',"No Tractive account tied to this email." )
 
     })
